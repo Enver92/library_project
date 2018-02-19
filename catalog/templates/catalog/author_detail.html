@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ author }}|{{ block.super }}{% endblock %}
+
+{% block content %}
+    <h1>{{ author }}</h1>
+    <h3>{{ author.date_of_birth }} - {{ author.date_of_death|default_if_none:"" }}</h3>
+
+    {% if author.bio %}
+        <p>{{ author.bio }}</p>
+    {% endif %}
+
+    <h3>Books:</h3>
+    <dl>
+        {% for book in author.book_set.all %}
+        <dt>{{book}}</dt>
+        <dd>{{book.summary}}|default_if_none:'No summary for this book.'</dd>
+        {% empty %}
+            <dt>We have no books of this author.</dt>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

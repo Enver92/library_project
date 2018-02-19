@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Authors|{{ block.super }}{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for author in author_list %}
+            <li><h3><a href="{% url "catalog:author_detail" author.pk %}">{{ author }}</a></h3></li>
+        {% empty %}
+            No authors yet.
+        {% endfor %}
+    </ul>
+
+{% endblock %}
