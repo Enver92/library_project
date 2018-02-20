@@ -100,15 +100,35 @@ class AllLoanedBooks(PermissionRequiredMixin, ListView):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 
-class AuthorCreate(CreateView):
-    model = Author
+class AuthorCreate(PermissionRequiredMixin, CreateView):
+    model =                 Author
+    fields =                '__all__'
+    initial=                {'date_of_death':'05/01/2018',}
+    permission_required =   'catalog.can_edit_author'
+
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
+    model =                     Author
+    fields =                    ['first_name','last_name','date_of_birth','date_of_death', 'bio']
+    permission_required =       'catalog.can_edit_author'
+
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
+    model =                     Author
+    success_url =               reverse_lazy('authors')
+    permission_required =       'catalog.can_edit_author'
+
+
+class BookCreate(PermissionRequiredMixin, CreateView):
+    model = Book
     fields = '__all__'
-    initial={'date_of_death':'05/01/2018',}
+    # initial = {''}
+    permission_required = 'catalog.can_edit_author'
 
-class AuthorUpdate(UpdateView):
-    model = Author
-    fields = ['first_name','last_name','date_of_birth','date_of_death']
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    model =                     Book
+    fields =                    ['summary', 'genre']
+    permission_required =       'catalog.can_edit_author'
 
-class AuthorDelete(DeleteView):
-    model = Author
-    success_url = reverse_lazy('authors')
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model =                     Author
+    success_url =               reverse_lazy('books')
+    permission_required =       'catalog.can_edit_author'

@@ -117,9 +117,10 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+        permissions = (('can_edit_author', 'Edit an author'), )
 
     def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+        return reverse('catalog:author_detail', args=[str(self.id)])
 
     def __str__(self):
         # return f"{self.first_name} {self.last_name} ({self.date_of_birth['year']}-{self.date_of_death})"
