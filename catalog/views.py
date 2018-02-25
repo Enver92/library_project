@@ -70,9 +70,9 @@ class BookListView(LoginRequiredMixin, ListView):
 class BookDetailView(LoginRequiredMixin, DetailView):
     model = Book
 
-class AuthorListView(LoginRequiredMixin, ListView):
+class AuthorListView(ListView):
     model = Author
-    paginate_by = 5
+    paginate_by = 10
 
 class AuthorDetailView(LoginRequiredMixin, DetailView):
     model = Author
